@@ -5,6 +5,7 @@
   <title>Sign Up Form</title>
 </head>
 <body>
+  <%- include("partials/navbar.ejs") %>
 
   <form action="/signup" method="POST">
     <h1>Sign Up</h1>
@@ -32,7 +33,7 @@
 
     <div>
       <label for="password">Password</label>
-      <input id="password" name="password" type="password" />
+      <input id="password" name="password" type="password" onclick="() => showPassword('password')" />
       <% if (locals.errors) {%>
         <p>
           <%= errors.password.msg %>
@@ -42,7 +43,7 @@
 
     <div>
       <label for="confirmPassword">Confirm Password</label>
-      <input id="confirmPassword" name="confirmPassword" type="password" />
+      <input id="confirmPassword" name="confirmPassword" type="password" onclick="() => showPassword('confirmPassword')"/>
       <% if (locals.errors) {%>
         <p>
           <%= errors.confirmPassword.msg %>
@@ -53,5 +54,15 @@
     <button>Sign Up</button>
   </form>
 
+  <script>
+    function showPassword(id) {
+      const input = document.getElementById(id);
+      if (input.type === "password") {
+       input.type = "text";
+       } else {
+       input.type = "password";
+      }
+    }
+  </script>
 </body>
 </html>

@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
+  <title>Home Page</title>
 </head>
 <body>
-  <h1>Placeholder</h1>
+  <%- include("partials/navbar.ejs") %>
+
+  <% if (locals.user) {%>
+    <h1>Welcome Back <%= user.username %></h1>
+    <a href="/logout"><button type="button">Logout</button></a>
+
+  <% } else { %>
+    <h1>Welcome to Super Forum</h1>
+    <p>Create an account to start posting.</p>
+    <p>Please note that only members can view the names of authors and the dates of posts.</p>
+    <p>Already have an account? Sign in <a href="/login">here</a></p>
+  <%}%>
 </body>
 </html>
