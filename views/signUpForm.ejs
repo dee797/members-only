@@ -5,13 +5,53 @@
   <title>Sign Up Form</title>
 </head>
 <body>
-  <h1>Sign Up</h1>
-  <form action="" method="POST">
-    <label for="username">Username</label>
-    <input id="username" name="username" placeholder="username" type="text" />
-    <label for="password">Password</label>
-    <input id="password" name="password" type="password" />
+
+  <form action="/signup" method="POST">
+    <h1>Sign Up</h1>
+
+    <div>
+      Password must meet the following requirements:
+    </div>
+    <ul>
+      <li>* Be at least 8 characters long</li>
+      <li>* Have at least 1 lowercase letter</li>
+      <li>* Have at least 1 uppercase letter</li>
+      <li>* Have at least 1 number</li>
+      <li>* Have at least 1 special character</li>
+    </ul>
+
+    <div>
+      <label for="username">Username</label>
+      <input id="username" name="username" type="text" />
+      <% if (locals.errors) {%>
+        <p>
+          <%= errors.username.msg %>
+        </p>
+      <% } %>
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" />
+      <% if (locals.errors) {%>
+        <p>
+          <%= errors.password.msg %>
+        </p>
+      <% } %>
+    </div>
+
+    <div>
+      <label for="confirmPassword">Confirm Password</label>
+      <input id="confirmPassword" name="confirmPassword" type="password" />
+      <% if (locals.errors) {%>
+        <p>
+          <%= errors.confirmPassword.msg %>
+        </p>
+      <% } %>
+    </div>
+
     <button>Sign Up</button>
   </form>
+
 </body>
 </html>
