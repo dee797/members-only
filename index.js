@@ -1,45 +1,49 @@
+// node_modules imports
 
 require('dotenv').config();
 const path = require("node:path");
 const express = require("express");
-const app = express();
-const newMessageRouter = require("./routes/newMessageRouter");
+const session = require("express-session");
+const passport = require("passport");
 
+
+
+// Router imports
+
+const signUpRouter = require('./routes/signUpRouter');
+
+
+
+// Configurations
+
+const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname,'public')));
 
-
-
-const messages = [
-  {
-    id: 1,
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date()
-  },
-  {
-    id: 2,
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date()
-  }
-];
-
-async function getMessageById(messageId, messages) {
-  return messages.find(message => message.id == messageId);
-};
-
-app.locals.messages = messages;
-app.use(express.urlencoded({ extended: true }));
-
-
-
-app.use("/new", newMessageRouter);
-
-app.get('/', (req, res) => {
-  res.render("index", { title: "Mini Messageboard", messages: app.locals.messages});
+app.use(session({ 
+  secret: "cats", 
+  resave: false, 
+  saveUninitialized: false
+  // cookie: { maxAge: 1000 * 60 * 60 * 24 }
+}));
+app.use(passport.session());
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
 });
 
+
+// Routing
+
+app.use("/signup", signUpRouter);
+
+app.get('/', (req, res) => {
+  res.render("index");
+});
+
+/*
 app.get("/:id", async (req, res) => {
   try {
     const message = await getMessageById(req.params.id, app.locals.messages);
@@ -56,11 +60,23 @@ app.get("/:id", async (req, res) => {
     res.status(505).send("Internal Server Error");
   }
 });
+*/
 
-app.use((req, res, next) => {
-    res.status(404);
-    res.render("error");
-  });
+
+// Error handling
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.statusCode || 500).send(err.message || "Internal server error");
+});
+
+app.all('/*', (req, res, next) => {
+  res.status(404).send("404 - Not found");
+  ;
+});
+
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT);
