@@ -11,6 +11,7 @@ const passport = require("passport");
 // Router imports
 
 const signUpRouter = require('./routes/signUpRouter');
+const loginRouter = require('./routes/loginRouter');
 
 
 
@@ -38,9 +39,19 @@ app.use((req, res, next) => {
 // Routing
 
 app.use("/signup", signUpRouter);
+app.use("/login", loginRouter);
+
+app.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
 
 app.get('/', (req, res) => {
-  res.render("index");
+  res.render("index", { user: res.locals.currentUser });
 });
 
 /*
