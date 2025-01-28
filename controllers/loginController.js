@@ -1,5 +1,5 @@
 const passport = require("passport");
-
+require("../config/passport");
 
 // GET requests
 const getLogin = (req, res) => {
@@ -8,11 +8,11 @@ const getLogin = (req, res) => {
 
 
 // POST requests
-const postLogin = (req, res) => {
+const postLogin = (req, res, next) => {
     passport.authenticate("local", {
       successRedirect: "/",
       failureRedirect: "/login"
-    })
+    })(req, res, next);
 };
 
 
