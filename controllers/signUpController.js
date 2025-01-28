@@ -53,7 +53,10 @@ const postSignUp = [
 
       if (!errors.isEmpty()) {
         return res.status(400).render("signUpForm", {
-          errors: errors.mapped()
+          errors: errors.mapped(),
+          username: req.body.username,
+          password: req.body.password,
+          confirmPassword: req.body.confirmPassword
         });
       }
       next();
@@ -62,7 +65,8 @@ const postSignUp = [
     asyncHandler(async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         await db.addNewUser(req.body.username, hashedPassword);
-        res.redirect("/");
+        
+        res.redirect("/login");
     })
 ];
   
