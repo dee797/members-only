@@ -6,7 +6,7 @@ const LocalStrategy = require("passport-local").Strategy;
 passport.use(
     new LocalStrategy(async (username, password, done) => {
       try {
-        const user = await db.getUser(username);
+        const user = await db.getUserByUsername(username);
   
         if (!user) {
           return done(null, false, { message: "Incorrect username" });
@@ -27,7 +27,7 @@ passport.use(
 
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user.userid);
 });
   
 
