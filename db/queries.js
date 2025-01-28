@@ -6,7 +6,7 @@ async function getUserByUsername(username) {
   }
 
 async function getUserByID(id) {
-  const { rows } = await pool.query("SELECT * FROM users WHERE userID = $1", [id]);
+  const { rows } = await pool.query("SELECT * FROM users WHERE userid = $1", [id]);
   return rows[0];
 }
 
