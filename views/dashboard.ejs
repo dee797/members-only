@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <%- include("partials/navbar.ejs") %>
+
+    <h1>Welcome Back <%= username %></h1>
+
+    <p>
+        Currently a member: 
+        <% if (member === true) { %>
+            <span>Yes</span>
+        <% } else { %>
+            <span>No</span>
+        <% } %>
+    </p>
+    
+    <a href="/dashboard/newMessage"><button type="button">Create New Message</button></a>
+    <a href="/dashboard/membership"><button type="button">Update Membership Status</button></a>
+
+</body>
+</html>
