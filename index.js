@@ -1,15 +1,13 @@
 // node_modules imports
-
 require('dotenv').config();
 const path = require("node:path");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-
+const pgSession = require("connect-pg-simple")(session);
 
 
 // Router imports
-
 const signUpRouter = require('./routes/signUpRouter');
 const loginRouter = require('./routes/loginRouter');
 
@@ -20,15 +18,24 @@ const loginRouter = require('./routes/loginRouter');
 const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,'public')));
 
+
+// Session Setup
 app.use(session({ 
-  secret: "cats", 
+  store: new pgSession({
+    pool: require("./db/pool")
+  }),
+  secret: process.env.SECRET, 
+  genid: () => require('crypto').randomBytes(32).toString('hex'),
   resave: false, 
-  saveUninitialized: false
-  // cookie: { maxAge: 1000 * 60 * 60 * 24 }
+  saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 },
+  unset: 'destroy'
 }));
+
+//Passport Authentication
 app.use(passport.session());
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
@@ -37,7 +44,6 @@ app.use((req, res, next) => {
 
 
 // Routing
-
 app.use("/signup", signUpRouter);
 app.use("/login", loginRouter);
 
