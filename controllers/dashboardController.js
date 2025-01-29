@@ -13,16 +13,15 @@ const getDashboard = (req, res) => {
 };
 
 const getNewMessageForm = (req, res) => {
+    res.render("messageForm");
+}
+
+const getMembershipForm = (req, res) => {
     if (res.locals.currentUser.member === true) {
         return res.render("membershipForm", {
             currentMember: "You are already a member."
         });
     }
-
-    res.render("messageForm");
-}
-
-const getMembershipForm = (req, res) => {
     res.render("membershipForm");
 }
 
@@ -42,6 +41,7 @@ const postMembershipForm = asyncHandler(async (req, res) => {
     }
 
     await db.updateUserMembership(res.locals.currentUser.userid);
+    res.redirect("/dashboard");
 })
 
 
