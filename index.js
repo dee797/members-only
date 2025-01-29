@@ -11,6 +11,8 @@ const { isAuthenticated } = require("./controllers/authenticateController");
 // Router imports
 const signUpRouter = require("./routes/signUpRouter");
 const loginRouter = require("./routes/loginRouter");
+const indexRouter = require("./routes/indexRouter");
+const dashboardRouter = require("./routes/dashboardRouter");
 
 
 // Configurations
@@ -46,6 +48,7 @@ app.use((req, res, next) => {
 // Routing
 app.use("/signup", signUpRouter);
 app.use("/login", loginRouter);
+app.use("/dashboard", dashboardRouter);
 
 app.get("/logout", isAuthenticated, (req, res, next) => {
   req.logout((err) => {
@@ -63,9 +66,7 @@ app.get("/logout", isAuthenticated, (req, res, next) => {
   });
 });
 
-app.get("/", (req, res) => {
-  res.render("index", { user: res.locals.currentUser });
-});
+app.get("/", indexRouter);
 
 
 // Error handling
