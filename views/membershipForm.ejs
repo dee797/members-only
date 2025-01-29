@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Form</title>
+</head>
+<body>
+    <%- include("partials/navbar.ejs") %>
+
+    <h1>Membership Form</h1>
+    
+    <% if (!locals.currentMember) { %>
+        <p>
+            Enter the correct passcode to become a member 
+            (hint: look at the README for this project's Github repository)
+        </p>
+
+        <form method="post" action="/dashboard/membership">
+            <label for="passcode">Passcode: </label>
+            <input id="passcode" name="passcode" type="text" maxlength="50">
+            <% if (locals.error) { %>
+                <p><%= locals.error%></p>
+            <% } %>
+            <button type="submit">Submit</button>
+        </form>
+    <% } else { %>
+        <p><%= locals.currentMember %></p>
+        <a href="/dashboard"><button type="button">Back to Dashboard</button></a>
+    <% } %>
+</body>
+</html>
