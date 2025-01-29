@@ -7,15 +7,31 @@
 <body>
   <%- include("partials/navbar.ejs") %>
 
-  <% if (locals.user) {%>
-    <h1>Welcome Back <%= user.username %></h1>
-    <a href="/logout"><button type="button">Logout</button></a>
-
-  <% } else { %>
     <h1>Welcome to Super Forum</h1>
-    <p>Create an account to start posting.</p>
-    <p>Please note that only members can view the names of authors and the dates of posts.</p>
-    <p>Already have an account? Sign in <a href="/login">here</a></p>
-  <%}%>
+
+    <% if (!locals.user) { %>
+      <p>Create an account to start posting.</p>
+      <p>Please note that only members can view the author and date of each post.</p>
+      <p>Already have an account? Sign in <a href="/login">here</a></p>
+    <% } %>
+
+    <% if (locals.messages.length > 0) { %>
+       <% locals.messages.forEach(message => { %>
+          <div>
+            <p><%= message.title %></p>
+            <% if (locals.user && locals.user.member) { %> 
+              <p><%= message.username %></p>
+              <p><%= message.messagetimestamp %></p>
+            <% } else { %>
+              <p>Author: ?????</p>
+              <p>Date: ?????</p>
+            <% } %>
+            <p><%= message.message %></p>
+          </div>
+        <% }); %>
+    <% } else { %>
+      <p>There are currently no posts on the forum.</p>
+    <% } %>
+
 </body>
 </html>
