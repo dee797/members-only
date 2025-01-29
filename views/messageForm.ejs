@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Message</title>
+</head>
+<body>
+    <%- include("partials/navbar.ejs") %>
+
+    <h1>New Message</h1>
+    <form method="post" action="/dashboard/newMessage">
+        <label for="title">Title:</label>
+        <input id="title" name="title" maxlength="100" type="text"/>
+        
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" maxlength="250"></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+    
+</body>
+</html>
