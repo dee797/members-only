@@ -9,13 +9,20 @@ const getLogin = (req, res) => {
 
 // POST requests
 const postLogin = (req, res, next) => {
-    passport.authenticate("local", {
-      successRedirect: "/",
-      failureRedirect: "/login"
+    passport.authenticate("local", (err, user, info) => {
+        if (err) { return next(err) }
+        if (!user) {
+            return res.render("loginForm", { message: info.message });
+        }
+        
+        req.login(user, (err) => {
+            if (err) { return next(err) }
+            return res.redirect("/");
+        })
     })(req, res, next);
 };
 
-
+passport.auth
 module.exports = {
     getLogin,
     postLogin
