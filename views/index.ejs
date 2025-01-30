@@ -3,35 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Home Page</title>
+  <link href="/css/style.css" rel="stylesheet"> 
 </head>
-<body>
-  <%- include("partials/navbar.ejs") %>
+<body class="bg-gray-200">
 
-    <h1>Welcome to Super Forum</h1>
+    <div class="flex flex-col mx-auto max-w-screen-lg sm:items-center min-h-screen bg-white border-black border-4">
+      <%- include("partials/navbar.ejs") %>
 
-    <% if (!locals.user) { %>
-      <p>Create an account to start posting.</p>
-      <p>Please note that only members can view the author and date of each post.</p>
-      <p>Already have an account? Sign in <a href="/login">here</a></p>
-    <% } %>
 
-    <% if (locals.messages.length > 0) { %>
-       <% locals.messages.forEach(message => { %>
-          <div>
-            <p><%= message.title %></p>
-            <% if (locals.user && locals.user.member) { %> 
-              <p><%= message.username %></p>
-              <p><%= message.messagetimestamp %></p>
-            <% } else { %>
-              <p>Author: ?????</p>
-              <p>Date: ?????</p>
-            <% } %>
-            <p><%= message.message %></p>
-          </div>
-        <% }); %>
-    <% } else { %>
-      <p>There are currently no posts on the forum.</p>
-    <% } %>
+      <h1 class="text-3xl font-bold mt-10">Welcome to Super Forum</h1>
+      <% if (!locals.user) { %>
+        <div class="text-center my-10 mx-24 text-xl">
+          <p class="p-5 text-2xl">Create an account to start posting.</p>
+          <p class="p-5">Anyone can view posts, but please note that only members can view the author and date of each post.</p>
+          <p>Already have an account? Sign in <a class="text-blue-700 underline" href="/login">here</a></p>
+        </div> 
+      <% } %>
+      <% if (locals.messages.length > 0) { %>
+         <% locals.messages.forEach(message => { %>
+            <div class="m-8 min-w-xl flex rounded-xl border-2 border-gray-300 p-4 text-left sm:p-8">
+              <div class="w-full text-left text-xl">
+                <h2 class="text-2xl font-semibold"><%= message.title %></h2>
+
+                <div class="mb-2 flex flex-col justify-start sm:flex-row gap-10">
+                <% if (locals.user && locals.user.member) { %>
+                  <p><%= message.username %></p>
+                  <p><%= message.messagetimestamp %></p>
+                <% } else { %>
+                  <p>Author: ????????</p>
+                  <p>Date: ????????</p>
+                <% } %>
+                </div>
+
+                <p><%= message.message %></p>
+              </div>
+            </div>
+          <% }); %>
+      <% } else { %>
+        <p>There are currently no posts on the forum.</p>
+      <% } %>
+
+    </div>
 
 </body>
 </html>
