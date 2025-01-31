@@ -4,23 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link href="/css/style.css" rel="stylesheet"> 
+
+    <noscript>
+        <meta http-equiv="refresh" content="0;url=/error">
+    </noscript>
 </head>
-<body>
-    <%- include("partials/navbar.ejs") %>
+<body class="bg-gray-200">
+    <div class="flex flex-col mx-auto max-w-screen-lg sm:items-center min-h-screen bg-white border-black border-4">
 
-    <h1>Welcome Back <%= username %></h1>
+        <%- include("partials/navbar.ejs") %>
 
-    <p>
-        Currently a member: 
-        <% if (member === true) { %>
-            <span>Yes</span>
-        <% } else { %>
-            <span>No</span>
-        <% } %>
-    </p>
-    
-    <a href="/dashboard/newMessage"><button type="button">Create New Message</button></a>
-    <a href="/dashboard/membership"><button type="button">Update Membership Status</button></a>
+        <h1 class="text-3xl font-bold mt-10">Welcome Back <%= username %></h1>
 
+        <p class="p-5 text-2xl m-10">
+            Currently a member: 
+            <% if (member === true) { %>
+                <span class="font-bold">Yes</span>
+            <% } else { %>
+                <span class="font-bold">No</span>
+            <% } %>
+        </p>
+        
+        <div class="flex flex-col mb-10 max-w-screen-lg">
+            <a href="/dashboard/newMessage" class="my-5 w-full"><button type="button" class="w-full rounded-md bg-amber-800 p-2 text-center font-semibold text-white outline-none hover:cursor-pointer hover:bg-amber-900">Create New Message</button></a>
+            <a href="/dashboard/membership" class="my-5 w-full"><button type="button" class="w-full rounded-md bg-amber-800 p-2 text-center font-semibold text-white outline-none hover:cursor-pointer hover:bg-amber-900">Update Membership Status</button></a>
+        </div>
+    </div>
 </body>
 </html>

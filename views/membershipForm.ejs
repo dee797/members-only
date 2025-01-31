@@ -4,29 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Membership Form</title>
-</head>
-<body>
-    <%- include("partials/navbar.ejs") %>
+    <link href="/css/style.css" rel="stylesheet"> 
+    <!--
+        *** Use script below if pages are cached and need to be reloaded with
+        *** a new GET request if the user revists it using the back/forward buttons
 
-    <h1>Membership Form</h1>
+        <script type="text/javascript">
+            const perfEntries = performance.getEntriesByType("navigation");
+        
+            if (perfEntries[0].type === "back_forward") {
+            fetch("/dashboard/membership", { 
+                method: "GET", 
+                mode: "cors"
+                })
+            .then((res) => {
+                return res;
+            })
+            .catch((err) => {
+                console.log("A network error has occurred.");
+            })
+            }
+      </script>
+    -->
     
-    <% if (!locals.currentMember) { %>
-        <p>
-            Enter the correct passcode to become a member 
-            (hint: look at the README for this project's Github repository)
-        </p>
+    <noscript>
+        <meta http-equiv="refresh" content="0;url=/error">
+    </noscript>
+</head>
+<body class="bg-gray-200">
+    <div class="flex flex-col mx-auto max-w-screen-lg sm:items-center min-h-screen bg-white border-black border-4">
+        <%- include("partials/navbar.ejs") %>
 
-        <form method="post" action="/dashboard/membership">
-            <label for="passcode">Passcode: </label>
-            <input id="passcode" name="passcode" type="text" maxlength="50">
-            <% if (locals.error) { %>
-                <p><%= locals.error%></p>
-            <% } %>
-            <button type="submit">Submit</button>
-        </form>
-    <% } else { %>
-        <p><%= locals.currentMember %></p>
-        <a href="/dashboard"><button type="button">Back to Dashboard</button></a>
-    <% } %>
+        <h1 class="text-3xl font-bold mt-10">Membership Form</h1>
+        
+        <% if (!locals.currentMember) { %>
+            <form method="post" action="/dashboard/membership" class="my-10 relative border-gray-300 border-2 space-y-3 max-w-full mx-auto rounded-md p-6 lg:p-10">
+                <p>Enter the correct passcode to become a member</p>
+                <p>(hint: look at the README for this project's Github repository)</p>
+
+                <div class="mt-8">
+                    <label for="passcode">Passcode: </label>
+                    <input id="passcode" name="passcode" type="text" maxlength="50" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3">
+                    <% if (locals.error) { %>
+                        <p><%= locals.error%></p>
+                    <% } %>
+                </div>
+
+                <button type="submit" class="mt-5 w-full rounded-md bg-amber-800 p-2 text-center font-semibold text-white outline-none hover:cursor-pointer hover:bg-amber-900">Submit</button>
+            
+            </form>
+        <% } else { %>
+            <p class="text-center text-xl my-10"><%= locals.currentMember %></p>
+            <a href="/dashboard"><button type="button" class="my-5 w-full rounded-md bg-amber-800 p-2 text-center font-semibold text-white outline-none hover:cursor-pointer hover:bg-amber-900">Back to Dashboard</button></a>
+        <% } %>
+    </div>
 </body>
 </html>

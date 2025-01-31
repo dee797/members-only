@@ -22,6 +22,17 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname,"public")));
 
+/** 
+ * Prevent web pages from being cached in browser, 
+ * as caching causes issues with the login system 
+ * if user uses the back/forward buttons
+ */ 
+
+app.use((req, res, next) => {
+  res.set("Cache-Control", "no-store");
+  next();
+})
+
 
 // Session Setup
 app.use(session({ 
@@ -43,6 +54,7 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
+
 
 
 // Routing
