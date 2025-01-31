@@ -5,14 +5,14 @@ const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
 const pgSession = require("connect-pg-simple")(session);
-const { isAuthenticated } = require("./controllers/authenticateController");
 
 
-// Router imports
+// Router / Controller imports
 const signUpRouter = require("./routes/signUpRouter");
 const loginRouter = require("./routes/loginRouter");
 const indexRouter = require("./routes/indexRouter");
 const dashboardRouter = require("./routes/dashboardRouter");
+const { isAuthenticated } = require("./controllers/authenticateController");
 
 
 // Configurations
@@ -65,6 +65,10 @@ app.get("/logout", isAuthenticated, (req, res, next) => {
     });
   });
 });
+
+app.get("/error", (req, res) => {
+  res.render("partials/noscriptError");
+})
 
 app.get("/", indexRouter);
 
