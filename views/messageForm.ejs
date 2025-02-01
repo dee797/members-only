@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Message</title>
     <link href="/css/style.css" rel="stylesheet">
+    <script>
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                location.reload();
+            }
+            });
+    </script>
     
     <noscript>
         <meta http-equiv="refresh" content="0;url=/error">
@@ -16,7 +23,7 @@
         <%- include("partials/navbar.ejs") %>
 
         <h1 class="text-3xl font-bold mt-10">New Message</h1>
-        <form method="post" action="/dashboard/newMessage" class="my-10 relative border-gray-300 border-2 space-y-3 max-w-full min-w-md mx-auto rounded-md p-6 lg:p-10">
+        <form autocomplete="off" method="post" action="/dashboard/newMessage" class="my-10 relative border-gray-300 border-2 space-y-3 max-w-full min-w-md mx-auto rounded-md p-6 lg:p-10">
             <div>
                 <label for="title">Title:</label>
                 <input id="title" name="title" maxlength="100" type="text" class="mt-2 h-12 w-full rounded-md bg-gray-100 px-3" required/>   
@@ -24,7 +31,7 @@
 
             <div>
                 <label for="message">Message:</label>
-                <textarea id="message" name="message" maxlength="250" rows="10" class="whitespace-pre-wrap mt-2 w-full rounded-md bg-gray-100 px-3"></textarea>
+                <textarea id="message" name="message" maxlength="250" rows="10" class="whitespace-pre-wrap mt-2 w-full rounded-md bg-gray-100 p-3"></textarea>
             </div>
 
             <button type="submit" class="mt-5 w-full rounded-md bg-amber-800 p-2 text-center font-semibold text-white outline-none hover:cursor-pointer hover:bg-amber-900">Submit</button>

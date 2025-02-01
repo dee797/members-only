@@ -5,27 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Membership Form</title>
     <link href="/css/style.css" rel="stylesheet"> 
-    <!--
-        *** Use script below if pages are cached and need to be reloaded with
-        *** a new GET request if the user revists it using the back/forward buttons
-
-        <script type="text/javascript">
-            const perfEntries = performance.getEntriesByType("navigation");
-        
-            if (perfEntries[0].type === "back_forward") {
-            fetch("/dashboard/membership", { 
-                method: "GET", 
-                mode: "cors"
-                })
-            .then((res) => {
-                return res;
-            })
-            .catch((err) => {
-                console.log("A network error has occurred.");
-            })
+    <script>
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                location.reload();
             }
+            });
+
+        window.addEventListener('pagehide', (event) => {
+            history.replaceState({}, '', '/signup');
+        });
       </script>
-    -->
     
     <noscript>
         <meta http-equiv="refresh" content="0;url=/error">
@@ -38,7 +28,7 @@
         <h1 class="text-3xl font-bold mt-10">Membership Form</h1>
         
         <% if (!locals.currentMember) { %>
-            <form method="post" action="/dashboard/membership" class="my-10 relative border-gray-300 border-2 space-y-3 max-w-full mx-auto rounded-md p-6 lg:p-10">
+            <form autocomplete="off" method="post" action="/dashboard/membership" class="my-10 relative border-gray-300 border-2 space-y-3 max-w-full mx-auto rounded-md p-6 lg:p-10">
                 <p>Enter the correct passcode to become a member</p>
                 <p>(hint: look at the README for this project's Github repository)</p>
 

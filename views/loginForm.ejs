@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="/css/style.css" rel="stylesheet">
+    <script>
+      window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            location.reload();
+        }
+        });
+      
+      window.addEventListener('pagehide', (event) => {
+        history.replaceState({}, '', '/signup');
+      });
+    </script>
 
     <noscript>
       <meta http-equiv="refresh" content="0;url=/error">
@@ -20,7 +31,7 @@
       <p class="m-10">You are currently logged in as <%= currentUser.username %></p>
     <% } else { %>
 
-      <form action="/login" method="POST" class="my-10 relative border-gray-300 border-2 space-y-3 max-w-full mx-auto rounded-md p-6 lg:p-10">
+      <form autocomplete="off" action="/login" method="POST" class="my-10 relative border-gray-300 border-2 space-y-3 max-w-full mx-auto rounded-md p-6 lg:p-10">
           <h1 class="text-3xl font-bold mt-10">Login</h1>
 
           <% if (locals.message) { %>
@@ -43,11 +54,6 @@
       </form>
 
       <script>
-          window.addEventListener("pageshow", () => {
-            document.getElementById("username").value = "";
-            document.getElementById("password").value = "";
-          });
-      
           function showPassword(inputId) {
             const input = document.getElementById(inputId);
             const hide = document.getElementById(`eyeClosed_${inputId}`);
