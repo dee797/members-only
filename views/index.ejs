@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <title>Home Page</title>
   <link href="/css/style.css" rel="stylesheet">
+  <script>
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) {
+          location.reload();
+      }
+      });
+  </script>
 
   <noscript>
     <meta http-equiv="refresh" content="0;url=/error">
