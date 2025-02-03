@@ -6,7 +6,10 @@
   <link href="/css/style.css" rel="stylesheet"> 
   <script>
     window.addEventListener('pageshow', (event) => {
-      if (event.persisted) location.reload();  
+      if (event.persisted) {
+        document.querySelector("html").textContent = "";
+        location.reload();
+      }  
     });
 
     window.addEventListener('pagehide', (event) => {

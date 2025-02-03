@@ -8,9 +8,10 @@
     <script>
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
+                document.querySelector("html").textContent = "";
                 location.reload();
             }
-            });
+        });
       </script>
     
     <noscript>

@@ -8,9 +8,10 @@
     <script>
       window.addEventListener('pageshow', (event) => {
         if (event.persisted) {
-            location.reload();
+          document.querySelector("html").textContent = "";
+          location.reload();
         }
-        });
+      });
       
       window.addEventListener('pagehide', (event) => {
         history.replaceState({}, '', '/login');

@@ -6,11 +6,13 @@
     <title>New Message</title>
     <link href="/css/style.css" rel="stylesheet">
     <script>
+
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
+                document.querySelector("html").textContent = "";
                 location.reload();
             }
-            });
+        });
     </script>
     
     <noscript>
