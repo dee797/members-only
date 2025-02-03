@@ -10,6 +10,9 @@
           location.reload();
       }
       });
+
+    let localTimeStamp;
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   </script>
 
   <noscript>
@@ -40,7 +43,12 @@
                 <div class="mb-2 flex flex-col justify-between sm:flex-row gap-10">
                 <% if (locals.user && locals.user.member) { %>
                   <p><%= message.username %></p>
-                  <p><%= (new Date(message.messagetimestamp)).toLocaleString() %></p>
+                  <p id="<%= message.messageid %>"></p>
+                  <script>
+                    localTimeStamp = new Date("<%= message.messagetimestamp %>").toLocaleString({ timeZone: timeZone});
+        
+                    document.getElementById("<%= message.messageid %>").textContent = localTimeStamp;
+                  </script>
                 <% } else { %>
                   <p>Author: ????????</p>
                   <p>Date: ????????</p>

@@ -30,7 +30,7 @@ const updateUserMembership = async (userid) => {
 }
 
 const getAllMessages = async () => {
-  const { rows } = await pool.query(`SELECT messages.message, messages.title, messages.messagetimestamp, users.username
+  const { rows } = await pool.query(`SELECT messages.messageid, messages.message, messages.title, messages.messagetimestamp, users.username
                                      FROM messages 
                                      INNER JOIN users ON messages.userid = users.userid
                                      ORDER BY messages.messagetimestamp`);
