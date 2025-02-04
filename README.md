@@ -1,6 +1,6 @@
 # Members Only Message Board (Super Forum)
 
-This is a backend project where users can create an account to posts messages on a forum. Every post can be viewed on the index page of the website. After creating an account, users can become special members if they enter the (not so secret) passcode, which is: 
+This is a backend project where users can create an account to post messages on a forum. Every post can be viewed on the index page of the website. After creating an account, users can become special members if they enter the (not so secret) passcode, which is: 
 
 cats_are_cool
 
