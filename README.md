@@ -8,10 +8,11 @@ Members have the unique ability to view the author and date of each post, wherea
 
 **Important:** All accounts are stored in a database, and therefore passwords are salted and hashed for security purposes. However, please still exercise best password practices, and choose a complex password that you do **not** use on other sites. Thank you.
 
-This project uses the following technologies:
+This project is based on The Odin Project's "Member's Only" assignment. It uses the following technologies:
 
 - Node.js
 - Express.js
+- Passport.js
 - PostgreSQL
 - Tailwind CSS
 - EJS
